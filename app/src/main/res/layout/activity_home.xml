@@ -8,40 +8,49 @@
     tools:context=".Home"
     android:weightSum="1"
     android:orientation="vertical">
-    <LinearLayout
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="0.1"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="1">-->
+<!--        <View-->
+<!--            android:layout_weight="0.05"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"/>-->
+<!--        <TextView-->
+<!--            android:layout_weight="0.75"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:text="@string/Chats"-->
+<!--            android:textSize="50sp"-->
+<!--            android:fontFamily="sans-serif"-->
+<!--            />-->
+<!--        <ImageView-->
+<!--            android:padding="18dp"-->
+<!--            android:layout_weight="0.2"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:src="@drawable/search"-->
+<!--            />-->
+
+<!--    </LinearLayout>-->
+    <FrameLayout
+        android:layout_weight="0.9"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/fragmentContainer"/>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-        <View
-            android:layout_weight="0.05"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:layout_weight="0.75"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/white"
-            android:text="@string/Chats"
-            android:textSize="50sp"
-            android:fontFamily="sans-serif"
-            />
-        <ImageView
-            android:padding="18dp"
-            android:layout_weight="0.2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/search"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.8">
-
-    </LinearLayout>
+        android:id="@+id/bottomNavigation"/>
+    <!--        app:menu="@menu/bottom_navigation"-->
+    <!--        android:background="@color/purple"-->
+    <!--        app:itemIconTint="@color/yellow"-->
+    <!--        app:itemIconSize="50dp"-->
+    <!--        app:itemTextColor="@color/white"-->
 
 
 

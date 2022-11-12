@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Khatt</string>
     <string name="Chats">Chats</string>
+    <string name="chats">chats</string>
+    <string name="contacts">contacts</string>
+    <string name="calls">calls</string>
 </resources>
