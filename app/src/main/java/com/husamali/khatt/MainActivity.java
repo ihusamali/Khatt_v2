@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         khatt = findViewById(R.id.khatt);
         handler=new Handler();
         handler.postDelayed(() -> {
-            Intent intent=new Intent(MainActivity.this, Home.class);
+            Intent intent=new Intent(MainActivity.this, SignUp.class);
             startActivity(intent);
             finish();
         },1000);
