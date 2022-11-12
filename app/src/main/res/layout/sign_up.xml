@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6C7689"
+    android:background="#171c26"
     android:weightSum="3.5"
     tools:context=".SignUp">
 
