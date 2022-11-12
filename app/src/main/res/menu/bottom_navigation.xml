@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/bNavLiked"
+    <item android:id="@+id/bNavChat"
         android:icon="@drawable/chat"
         android:title="@string/chats"
         />
-    <item android:id="@+id/bNavAdd"
+    <item android:id="@+id/bNavContact"
         android:icon="@drawable/contact"
         android:title="@string/contacts"
         />
-    <item android:id="@+id/bNavHome"
+    <item android:id="@+id/bNavCall"
         android:icon="@drawable/call"
         android:title="@string/calls"
         />
