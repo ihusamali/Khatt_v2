@@ -100,7 +100,7 @@
             android:layout_marginLeft="80dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
-            android:text="Hello. I'm Katherine"
+            android:text="Hello Kathrine"
             android:textAlignment="gravity"
             android:gravity="end"
             android:textSize="15dp"
@@ -120,6 +120,25 @@
             android:layout_marginRight="80dp"
             android:textColor="@color/white"
             android:text="Hello."
+            android:textAlignment="gravity"
+            android:gravity="start"
+            android:textSize="15dp"
+            android:padding="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
+            android:background="@drawable/togglebackgroud"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="80dp"
+            android:textColor="@color/white"
+            android:text="How are you?"
             android:textAlignment="gravity"
             android:gravity="start"
             android:textSize="15dp"

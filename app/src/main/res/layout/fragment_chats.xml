@@ -93,7 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="0.5"
-                        android:text="Hello, How are you?"
+                        android:text="How are you?"
                         android:textColor="@color/white"
                         android:fontFamily="sans-serif"
                         android:textSize="15sp"
