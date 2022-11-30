@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "702297534358",
+    "project_id": "khatt-smd",
+    "storage_bucket": "khatt-smd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702297534358:android:cc64f454203724fa1a77b7",
+        "android_client_info": {
+          "package_name": "com.husamali.khatt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702297534358-im0ju8db6vdhho7fjb3k5nkeqjlm3i33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ8ccIpB4vo_5qbHevzh5BQhRE9vbuqPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702297534358-im0ju8db6vdhho7fjb3k5nkeqjlm3i33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
