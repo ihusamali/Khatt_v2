@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "702297534358-v6ma2qvr04cj3b88f3a6o3ciudopq2pm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.husamali.khatt",
+            "certificate_hash": "cefef615ee052ba04f8bda4740f312c3bef42705"
+          }
+        },
+        {
           "client_id": "702297534358-im0ju8db6vdhho7fjb3k5nkeqjlm3i33.apps.googleusercontent.com",
           "client_type": 3
         }
