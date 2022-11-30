@@ -64,7 +64,7 @@ public class Otp extends AppCompatActivity {
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(number)       // Phone number to verify
                         .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(Otp.this)                 // Activity (for callback binding)
+                        .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
@@ -77,7 +77,6 @@ public class Otp extends AppCompatActivity {
                                 final String code = phoneAuthCredential.getSmsCode();
                                 if(code != null)
                                 {
-                                    Toast.makeText(getApplicationContext(),"1 1 1",Toast.LENGTH_SHORT).show();
                                     signInWithPhoneAuthCredential(phoneAuthCredential);
 
                                 }
@@ -98,7 +97,6 @@ public class Otp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(),"1 1 1 1 1 1",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), SignUpComplete.class);
                             startActivity(intent);
 

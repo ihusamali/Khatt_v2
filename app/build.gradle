@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.husamali.khatt'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.husamali.khatt"
-        minSdk 21
-        targetSdk 32
+        minSdk 23
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -42,5 +42,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha04'
+    implementation "androidx.browser:browser:1.4.0"
 
 }
