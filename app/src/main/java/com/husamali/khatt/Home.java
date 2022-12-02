@@ -22,6 +22,7 @@ public class Home extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNavigation);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new Chats(),"chats").commit();
         bottomNav.getMenu().findItem(R.id.bNavChat).setChecked(true);
+
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
