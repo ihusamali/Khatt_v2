@@ -1,19 +1,27 @@
 package com.husamali.khatt;
 
+import android.graphics.Bitmap;
+
 public class UserProfile {
 
-    public String username, userUID;
+    public String username, userUID, dp;
 
-    public UserProfile() {
-    }
-
-    public UserProfile(String username, String userUID) {
+    public UserProfile(String username, String userUID, String dp) {
         this.username = username;
         this.userUID = userUID;
+        this.dp = dp;
+    }
+
+    public String getDp() {
+        return this.dp;
+    }
+
+    public void setDp(String dp) {
+        this.dp = dp;
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -21,7 +29,7 @@ public class UserProfile {
     }
 
     public String getUserUID() {
-        return userUID;
+        return this.userUID;
     }
 
     public void setUserUID(String userUID) {

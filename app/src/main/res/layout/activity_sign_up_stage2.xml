@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_black"
     android:weightSum="2.5"
-    tools:context=".SignUpComplete">
-
+    android:orientation="vertical"
+    tools:context=".SignUpStage2">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         android:src="@drawable/khatt_white_zoomed"
         />
 
@@ -27,7 +27,7 @@
             android:layout_height="60dp"
             android:text="Finishing Sign Up"
             android:textColor="@color/white"
-            android:textSize="24dp"
+            android:textSize="24sp"
             android:textStyle="bold"/>
 
     </LinearLayout>
@@ -45,10 +45,10 @@
             android:inputType="text"
             android:layout_gravity="center"
             android:textColorHint="@color/app_gray"
-            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
             android:textColor="@color/white"
             android:background="@drawable/togglebackgroud"
-            android:id="@+id/name"
+            android:id="@+id/nameSignUp"
             />
     </LinearLayout>
 
@@ -64,22 +64,18 @@
             android:layout_height="60dp"
             android:text="Select Profile Picture"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
     </LinearLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/dp"
-        android:layout_width="196dp"
-        android:layout_height="196dp"
-        android:layout_weight="0.25"
+        android:id="@+id/dpSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:layout_gravity="center"
         android:src="@drawable/khatt_bg"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"
-
         />
 
     <LinearLayout
@@ -90,7 +86,7 @@
         android:layout_marginRight="90dp">
 
         <Button
-            android:id="@+id/finish"
+            android:id="@+id/finishSignUp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -99,10 +95,6 @@
 
 
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

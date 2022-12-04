@@ -97,7 +97,7 @@ public class Otp extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(getApplicationContext(), SignUpComplete.class);
+                            Intent intent = new Intent(getApplicationContext(), SignUpStage2.class);
                             startActivity(intent);
 
                         } else {
