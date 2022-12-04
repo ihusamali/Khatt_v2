@@ -32,6 +32,8 @@ public class Home extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new Calls(),"calls").addToBackStack(null).commit();
                 }else if(item.getItemId() == R.id.bNavContact){
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new Contacts(),"contacts").addToBackStack(null).commit();
+                }else if(item.getItemId() == R.id.bNavBluetooth){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,new Bluetooth(),"bluetooth").addToBackStack(null).commit();
                 }
                 return true;
             }
@@ -45,6 +47,8 @@ public class Home extends AppCompatActivity {
                     bottomNav.getMenu().findItem(R.id.bNavCall).setChecked(true);
                 }else if(getSupportFragmentManager().findFragmentByTag("contacts") != null && getSupportFragmentManager().findFragmentByTag("contacts").isVisible()){
                     bottomNav.getMenu().findItem(R.id.bNavContact).setChecked(true);
+                }else if(getSupportFragmentManager().findFragmentByTag("bluetooth") != null && getSupportFragmentManager().findFragmentByTag("bluetooth").isVisible()){
+                    bottomNav.getMenu().findItem(R.id.bNavBluetooth).setChecked(true);
                 }
             }
         });
