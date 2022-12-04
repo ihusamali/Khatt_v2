@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ScanDevices"
     android:background="@color/app_black"
     android:weightSum="1"
     android:orientation="vertical">
@@ -16,26 +19,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <TextView
-            android:layout_weight="0.65"
+            android:layout_weight="0.75"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="@color/white"
-            android:text="Bluetooth"
+            android:text="Devices"
             android:textSize="35sp"
             android:gravity="center_vertical"
             android:fontFamily="sans-serif"
             />
+
         <ImageView
-            android:id="@+id/searchBluetooth"
-            android:padding="20dp"
-            android:layout_weight="0.15"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/bluetooth_searching"
-            />
-        <ImageView
-            android:padding="20dp"
-            android:layout_weight="0.15"
+            android:padding="25dp"
+            android:layout_weight="0.2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/search"
@@ -46,18 +42,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8"
-        android:weightSum="1"
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="5dp"
             android:background="@color/app_blue"
-            android:layout_weight="0.005"
             />
         <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.01"/>
+            android:layout_height="5dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/devicesRecycler"/>
     </LinearLayout>
 
 </LinearLayout>
