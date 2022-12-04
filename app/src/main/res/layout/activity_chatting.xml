@@ -103,14 +103,15 @@
             >
 
             <EditText
-                android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/togglebackgroud"
                 android:hint="Message..."
                 android:inputType="phone"
-                android:textColorHint="@color/white"
                 android:paddingLeft="50dp"
-                android:background="@drawable/togglebackgroud" />
+                android:layout_margin="5dp"
+                android:textColorHint="@color/white" />
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"

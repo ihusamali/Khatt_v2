@@ -48,6 +48,7 @@
             android:paddingLeft="30dp"
             android:textColor="@color/white"
             android:background="@drawable/togglebackgroud"
+            android:id="@+id/name"
             />
     </LinearLayout>
 
@@ -78,6 +79,7 @@
         android:src="@drawable/khatt_bg"
         app:civ_border_width="2dp"
         app:civ_border_color="#FF000000"
+
         />
 
     <LinearLayout

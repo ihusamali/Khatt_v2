@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/bNavChat"
         android:icon="@drawable/chat"
-        android:title="@string/chats"
+        android:title="Chats"
         />
     <item android:id="@+id/bNavContact"
         android:icon="@drawable/contact"
-        android:title="@string/contacts"
+        android:title="Contacts"
         />
     <item android:id="@+id/bNavCall"
         android:icon="@drawable/call"
-        android:title="@string/calls"
+        android:title="Calls"
         />
 
 </menu>
