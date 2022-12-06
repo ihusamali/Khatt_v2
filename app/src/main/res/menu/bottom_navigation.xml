@@ -8,10 +8,6 @@
         android:icon="@drawable/contact"
         android:title="Contacts"
         />
-    <item android:id="@+id/bNavCall"
-        android:icon="@drawable/call"
-        android:title="Calls"
-        />
     <item android:id="@+id/bNavBluetooth"
         android:icon="@drawable/bluetooth"
         android:title="Bluetooth"

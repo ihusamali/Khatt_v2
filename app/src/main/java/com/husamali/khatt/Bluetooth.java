@@ -68,8 +68,9 @@ public class Bluetooth  extends Fragment {
                             Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
                             discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
                             startActivity(discoveryIntent);
+                            startActivity(new Intent(getActivity(), ScanDevices.class));
                         }
-                        startActivity(new Intent(getActivity(), ScanDevices.class));
+
                     }
                 }
             }
