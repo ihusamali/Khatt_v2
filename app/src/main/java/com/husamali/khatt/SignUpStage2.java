@@ -56,10 +56,12 @@ public class SignUpStage2 extends AppCompatActivity {
             startForResult.launch(Intent.createChooser(i,"Pick your DP"));
         });
         finish.setOnClickListener(v -> {
-            if(dpp == null){
-                Toast.makeText(getApplicationContext(), "Please Select Profile Picture", Toast.LENGTH_LONG).show();
-            }else if (name.getText() == null){
+
+            if (name.getText() == null){
                 Toast.makeText(getApplicationContext(), "Please Enter Name", Toast.LENGTH_LONG).show();
+            }
+            else if(dpp == null) {
+                Toast.makeText(getApplicationContext(), "Please Select Profile Picture", Toast.LENGTH_LONG).show();
             }
             else{
                 str_name = name.getText().toString().trim();

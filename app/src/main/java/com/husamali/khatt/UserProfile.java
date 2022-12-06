@@ -12,6 +12,10 @@ public class UserProfile {
         this.dp = dp;
     }
 
+    public UserProfile() {
+
+    }
+
     public String getDp() {
         return this.dp;
     }

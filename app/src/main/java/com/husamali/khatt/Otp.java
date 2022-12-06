@@ -55,6 +55,9 @@ public class Otp extends AppCompatActivity {
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeGot,otp.getText().toString());
                     signInWithPhoneAuthCredential(credential);
                 }
+                else {
+                    Toast.makeText(getApplicationContext(),"Please enter OTP",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

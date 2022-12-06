@@ -46,7 +46,7 @@
             android:id="@+id/numberSignIn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:hint="Phone Number"
+            android:hint="Enter Phone number (+92xxxxxxxxxx)"
             android:inputType="phone"
             android:layout_gravity="center"
             android:textColorHint="@color/app_gray"
