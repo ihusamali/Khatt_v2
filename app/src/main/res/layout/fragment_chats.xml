@@ -50,102 +50,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.01"/>
-        <LinearLayout
-            android:layout_weight="0.15"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
-            <LinearLayout
-                android:id="@+id/Chat"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.02"/>
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.15"
-                    android:src="@drawable/dp"
-                    />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.04"/>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.65"
-                    android:weightSum="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.5"
-                        android:text="Kathrine"
-                        android:textColor="@color/white"
-                        android:fontFamily="sans-serif"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.5"
-                        android:text="How are you?"
-                        android:textColor="@color/white"
-                        android:fontFamily="sans-serif"
-                        android:textSize="15sp"
-                        />
+            android:layout_height="0dp"
+            android:layout_weight="0.985"/>
 
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.04"/>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:weightSum="1"
-                    android:orientation="vertical"
-                    android:layout_weight="0.1">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.4"
-                        android:text="1:20 am"
-                        android:textColor="@color/white"
-                        android:fontFamily="sans-serif"
-                        android:textSize="10sp"
-                        android:gravity="center"
-                        />
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.6">
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_width="match_parent"
-                        android:padding="5dp"
-                        android:src="@drawable/ic_baseline_circle_24"
-                        />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_centerInParent="true"
-                            android:gravity="center"
-                            android:text="2"
-                            android:textStyle="bold"
-                            android:textColor="@color/white" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
 
 
     </LinearLayout>
