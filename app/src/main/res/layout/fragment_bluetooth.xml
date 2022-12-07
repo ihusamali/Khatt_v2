@@ -34,6 +34,7 @@
             android:src="@drawable/bluetooth_searching"
             />
         <ImageView
+            android:id="@+id/searchBluetoothIcon"
             android:padding="20dp"
             android:layout_weight="0.15"
             android:layout_width="0dp"

@@ -36,6 +36,7 @@ public class BluetoothDevicesAdapter extends RecyclerView.Adapter<BluetoothDevic
             @Override
             public void onClick(View view) {
 
+
             }
         });
     }

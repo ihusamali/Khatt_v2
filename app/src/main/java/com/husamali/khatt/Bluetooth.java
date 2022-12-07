@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 
 public class Bluetooth  extends Fragment {
     BluetoothAdapter bluetoothAdapter;
-    ImageView searchBluetooth;
+    ImageView searchBluetooth,searchBluetoothIcon;
     ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
@@ -41,6 +41,7 @@ public class Bluetooth  extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         searchBluetooth = getView().findViewById(R.id.searchBluetooth);
+        searchBluetoothIcon = getView().findViewById(R.id.searchBluetoothIcon);
         searchBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,15 +65,21 @@ public class Bluetooth  extends Fragment {
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                             requestPermissionLauncher.launch(Manifest.permission.BLUETOOTH_SCAN);
                         }
-                        if (bluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-                            Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                            discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-                            startActivity(discoveryIntent);
-                            startActivity(new Intent(getActivity(), ScanDevices.class));
-                        }
+
+
+                        Intent discoveryIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                        discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+                        startActivity(discoveryIntent);
+
 
                     }
                 }
+            }
+        });
+        searchBluetoothIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ScanDevices.class));
             }
         });
     }
