@@ -1,6 +1,8 @@
 package com.husamali.khatt;
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +31,7 @@ public class Contacts extends Fragment {
     RecyclerView recyclerView;
     ContactAdapter contactAdapter;
     List<UserProfile> users;
+    List<String> numbersChat;
 
     SearchView searchView;
 
@@ -39,6 +42,8 @@ public class Contacts extends Fragment {
 
         searchView = view.findViewById(R.id.search);
         searchView.clearFocus();
+        numbersChat = new ArrayList<>();
+        GetNumber();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -93,7 +98,9 @@ public class Contacts extends Fragment {
                     assert user !=null;
                     assert firebaseUser !=null;
                     if (!user.getUserUID().equals(firebaseUser.getUid())){
-                        users.add(user);
+                        if(numbersChat.contains(user.getNumber())){
+                            users.add(user);
+                        }
                     }
                 }
 
@@ -107,5 +114,21 @@ public class Contacts extends Fragment {
 
             }
         });
+    }
+    private void GetNumber() {
+        Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        while (phones.moveToNext()) {
+            int index = phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            String phoneNumber = phones.getString(index);
+            phoneNumber =  phoneNumber.replace(" ","");
+            phoneNumber =  phoneNumber.replace("-","");
+            phoneNumber =  phoneNumber.replace("+92","0");
+            phoneNumber = "+92" + phoneNumber;
+            phoneNumber = phoneNumber.replace("+920","+92");
+            if(!numbersChat.contains(phoneNumber)){
+                numbersChat.add(phoneNumber);
+            }
+        }
+        phones.close();
     }
 }

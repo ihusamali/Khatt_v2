@@ -34,10 +34,10 @@ public class Chats extends Fragment {
     ContactAdapter contactAdapter;
     List <UserProfile> users;
 
-    FirebaseUser firebaseUser;
-    DatabaseReference databaseReference;
-
-    List<ChatList> usersList;
+//    FirebaseUser firebaseUser;
+//    DatabaseReference databaseReference;
+//
+//    List<ChatList> usersList;
 
     ImageView profile;
 
@@ -51,6 +51,9 @@ public class Chats extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        users = new ArrayList<>();
+        contactAdapter = new ContactAdapter(getContext(), users );
+        recyclerView.setAdapter(contactAdapter);
 
         profile = view.findViewById(R.id.profile);
 
@@ -61,69 +64,155 @@ public class Chats extends Fragment {
                 startActivity(intent);
             }
         });
+//        usersList = new ArrayList<>();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        usersList = new ArrayList<>();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                usersList.clear();
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    ChatList chatList = snapshot.getValue(ChatList.class);
-
-                    usersList.add(chatList);
-                }
-
-                chatList();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        getUsers();
 
 
+//        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//
 
+//
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                usersList.clear();
+//
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    ChatList chatList = dataSnapshot.getValue(ChatList.class);
+//
+//                    usersList.add(chatList);
+//                }
+//
+//                chatList();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//
+//
         return view;
     }
 
-    private void chatList() {
-        users = new ArrayList<>();
+    private void getUsers() {
+    users.clear();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            for(DataSnapshot ds: snapshot.getChildren()){
+                String id = ds.getKey();
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Chats").child(id);
+                database.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("sender").getValue(String.class).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(snapshot.child("receiver").getValue(String.class));
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    UserProfile user = snapshot.getValue(UserProfile.class);
+                                    boolean check = true;
+                                    for (int i=0;i<users.size();i++){
+                                        if(users.get(i).getUserUID().equals(user.getUserUID())){
+                                            check=false;
+                                            break;
+                                        }
+                                    }
+                                    if(check){
+                                        users.add(user);
+                                        contactAdapter.notifyDataSetChanged();
+                                    }
+                                }
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users.clear();
+                                }
+                            });
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    UserProfile userProfile = snapshot.getValue(UserProfile.class);
 
-                    for (ChatList chatlist : usersList){
+                        }else if(snapshot.child("receiver").getValue(String.class).equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(snapshot.child("sender").getValue(String.class));
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    UserProfile user = snapshot.getValue(UserProfile.class);
+                                    boolean check = true;
+                                    for (int i=0;i<users.size();i++){
+                                        if(users.get(i).getUserUID().equals(user.getUserUID())){
+                                            check=false;
+                                            break;
+                                        }
+                                    }
+                                    if(check){
+                                        users.add(user);
+                                        contactAdapter.notifyDataSetChanged();
+                                    }
+                                }
 
-                       //if (userProfile.getUserUID().equals(chatlist.getId())){
-                            users.add(userProfile);
-                        //}
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
                     }
 
-                    contactAdapter = new ContactAdapter(getContext(), users );
-                    recyclerView.setAdapter(contactAdapter);
-                }
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                    }
+                });
             }
-        });
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    });
+
+
     }
+//
+//    private void chatList() {
+//        users = new ArrayList<>();
+//
+//        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                users.clear();
+//
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    UserProfile userProfile = snapshot.getValue(UserProfile.class);
+//
+//                    for (ChatList chatlist : usersList){
+//
+//                       //if (userProfile.getUserUID().equals(chatlist.getId())){
+//                            users.add(userProfile);
+//                        //}
+//                    }
+//
+//                    contactAdapter = new ContactAdapter(getContext(), users );
+//                    recyclerView.setAdapter(contactAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
 }

@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:textColor="@color/white"
             android:text="Bluetooth"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:gravity="center_vertical"
             android:fontFamily="sans-serif"
             />

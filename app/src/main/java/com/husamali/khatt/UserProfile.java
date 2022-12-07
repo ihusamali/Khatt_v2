@@ -4,16 +4,32 @@ import android.graphics.Bitmap;
 
 public class UserProfile {
 
-    public String username, userUID, dp;
+    public String username, userUID, dp , number;
 
+    public UserProfile(String username, String userUID, String dp , String number) {
+        this.username = username;
+        this.userUID = userUID;
+        this.dp = dp;
+        this.number = number;
+    }
     public UserProfile(String username, String userUID, String dp) {
         this.username = username;
         this.userUID = userUID;
         this.dp = dp;
+        this.number = "";
     }
+
 
     public UserProfile() {
 
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getDp() {

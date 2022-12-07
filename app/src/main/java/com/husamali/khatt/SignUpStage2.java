@@ -99,7 +99,7 @@ public class SignUpStage2 extends AppCompatActivity {
                 StorageReference storageReference = storage.getReference("Image1"+calendar.getTimeInMillis()+".jpg");
                 storageReference.putFile(dpp).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid());
-                    UserProfile mUserProfile = new UserProfile(str_name, firebaseAuth.getCurrentUser().getUid(),uri.toString());
+                    UserProfile mUserProfile = new UserProfile(str_name, firebaseAuth.getCurrentUser().getUid(),uri.toString(),getIntent().getStringExtra("number"));
                     databaseReference.setValue(mUserProfile);
                     Intent intent=new Intent(getApplicationContext(), Home.class);
                     startActivity(intent);
