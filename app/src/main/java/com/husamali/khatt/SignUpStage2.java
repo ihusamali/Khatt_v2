@@ -56,6 +56,14 @@ public class SignUpStage2 extends AppCompatActivity {
                 if(result.getData()!=null) {
                     dpp = result.getData().getData();
                     dp.setImageURI(dpp);
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), dpp);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG,60,stream);
+                        bytes = stream.toByteArray();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -96,14 +104,7 @@ public class SignUpStage2 extends AppCompatActivity {
                     Intent intent=new Intent(getApplicationContext(), Home.class);
                     startActivity(intent);
                 }));
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), dpp);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
-                    bytes = stream.toByteArray();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
                 StringRequest request=new StringRequest(
                         Request.Method.POST,
                         "http://192.168.0.109/project/insert.php",
