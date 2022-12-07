@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,10 +30,28 @@ public class Contacts extends Fragment {
     ContactAdapter contactAdapter;
     List<UserProfile> users;
 
+    SearchView searchView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contacts,container,false);
+
+        searchView = view.findViewById(R.id.search);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -45,6 +65,18 @@ public class Contacts extends Fragment {
 
 
         return view;
+    }
+
+    private void filterList(String newText) {
+        List<UserProfile> filteredList = new ArrayList<>();
+        for (UserProfile user : users){
+            if (user.getUsername().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(user);
+            }
+
+                contactAdapter.setFilteredList(filteredList);
+
+        }
     }
 
     private void retrieveUsers() {

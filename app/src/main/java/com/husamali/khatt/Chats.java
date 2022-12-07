@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class Chats extends Fragment {
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
-    List<String> usersList;
+    List<ChatList> usersList;
 
     @Nullable
     @Override
@@ -49,7 +51,7 @@ public class Chats extends Fragment {
 
         usersList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid());
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -57,17 +59,12 @@ public class Chats extends Fragment {
                 usersList.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    ChatModel chatModel = dataSnapshot.getValue(ChatModel.class);
+                    ChatList chatList = snapshot.getValue(ChatList.class);
 
-                    if (chatModel.getSender().equals(firebaseUser.getUid())){
-                        usersList.add(chatModel.getReceiver());
-                    }
-                    if (chatModel.getReceiver().equals(firebaseUser.getUid())){
-                        usersList.add(chatModel.getSender());
-                    }
-
-                    readChats();
+                    usersList.add(chatList);
                 }
+
+                chatList();
             }
 
             @Override
@@ -76,10 +73,12 @@ public class Chats extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
-    private void readChats() {
+    private void chatList() {
         users = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -90,23 +89,18 @@ public class Chats extends Fragment {
                 users.clear();
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    UserProfile user = dataSnapshot.getValue(UserProfile.class);
+                    UserProfile userProfile = snapshot.getValue(UserProfile.class);
 
-                    for (String id : usersList){
-                        if (user.getUserUID().equals(id)){
-                            if (users.size() != 0) {
-                                for (UserProfile user1 : users){
-                                    if(!user.getUserUID().equals(user1.getUserUID())){
-                                        users.add(user);
-                                    }
-                                }
-                            }
-                        }
+                    for (ChatList chatlist : usersList){
+
+                       //if (userProfile.getUserUID().equals(chatlist.getId())){
+                            users.add(userProfile);
+                        //}
                     }
-                }
 
-                contactAdapter = new ContactAdapter(getContext(), users);
-                recyclerView.setAdapter(contactAdapter);
+                    contactAdapter = new ContactAdapter(getContext(), users );
+                    recyclerView.setAdapter(contactAdapter);
+                }
             }
 
             @Override
@@ -115,4 +109,6 @@ public class Chats extends Fragment {
             }
         });
     }
+
+
 }

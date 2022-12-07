@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#171c26"
     android:weightSum="1"
     android:orientation="vertical">
@@ -16,8 +17,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"/>
             <TextView
-                android:layout_weight="0.75"
-                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/white"
                 android:text="Contacts"
@@ -25,12 +26,16 @@
                 android:gravity="center_vertical"
                 android:fontFamily="sans-serif"
                 />
-            <ImageView
-                android:padding="25dp"
-                android:layout_weight="0.2"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:padding="10dp"
+                android:layout_weight="0.8"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/search"
+                app:queryHint="Search"
+                android:background="@drawable/togglebackgroud"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
+                app:iconifiedByDefault="false"
                 />
 
         </LinearLayout>

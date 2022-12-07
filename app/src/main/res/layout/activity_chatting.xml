@@ -38,21 +38,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.03"/>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.65"
-            android:weightSum="1"
-            android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1"/>
+
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.63"
                 android:text="Kathrine"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -61,25 +52,16 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 />
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.4"
-                android:text="Online"
-                android:textColor="#E6EAF1"
-                android:fontFamily="sans-serif"
-                android:textSize="15sp"
-                />
 
-        </LinearLayout>
+
         <ImageView
             android:id="@+id/menu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.09"
             android:src="@drawable/menu"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

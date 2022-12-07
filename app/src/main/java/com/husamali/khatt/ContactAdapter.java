@@ -20,6 +20,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     Context c;
     List<UserProfile> contacts;
 
+    public void setFilteredList(List<UserProfile> filteredList){
+        this.contacts = filteredList;
+        notifyDataSetChanged();
+    }
+
     public ContactAdapter (Context c , List<UserProfile> ct){
         this.c = c;
         this.contacts = ct;

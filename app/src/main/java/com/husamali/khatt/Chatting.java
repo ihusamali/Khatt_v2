@@ -42,6 +42,8 @@ public class Chatting extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    String userID;
+
     Intent intent;
 
     @Override
@@ -63,7 +65,7 @@ public class Chatting extends AppCompatActivity {
 
 
         intent = getIntent();
-        String userID = intent.getStringExtra("userID");
+        userID = intent.getStringExtra("userID");
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID);
@@ -118,6 +120,23 @@ public class Chatting extends AppCompatActivity {
         hashMap.put("message" , final_msg);
 
         databaseReference.child("Chats").push().setValue(hashMap);
+
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist").child(firebaseUser.getUid()).child(userID);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    chatRef.child("id").setValue(userID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void readMessages(String myID, String userID, String imageURL){
