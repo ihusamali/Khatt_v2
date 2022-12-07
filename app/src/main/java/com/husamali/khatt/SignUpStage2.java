@@ -1,8 +1,10 @@
 package com.husamali.khatt;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,15 +14,31 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpStage2 extends AppCompatActivity {
     EditText name;
@@ -28,6 +46,8 @@ public class SignUpStage2 extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     String str_name;
     ImageView dp;
+    byte[] bytes;
+    Bitmap bitmap;
     Uri dpp;
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -76,7 +96,69 @@ public class SignUpStage2 extends AppCompatActivity {
                     Intent intent=new Intent(getApplicationContext(), Home.class);
                     startActivity(intent);
                 }));
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), dpp);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream);
+                    bytes = stream.toByteArray();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                StringRequest request=new StringRequest(
+                        Request.Method.POST,
+                        "http://192.168.0.109/project/insert.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject obj=new JSONObject(response);
+                                    if(obj.getInt("code")==1)
+                                    {
+                                        finish();
+                                    }
+                                    else{
+                                        Toast.makeText(
+                                                getApplicationContext(),
+                                                obj.get("msg").toString()
+                                                ,Toast.LENGTH_LONG
+                                        ).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
 
+                                    Toast.makeText(
+                                            getApplicationContext(),
+                                            "Incorrect JSON "+e
+                                            ,Toast.LENGTH_LONG
+                                    ).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Cannot Connect to the Server."+"\n"+error.toString()
+                                        ,Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        })
+                {
+                    //                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params=new HashMap<>();
+                        params.put("name",name.getText().toString());
+                        params.put("id",firebaseAuth.getCurrentUser().getUid());
+                        params.put("dp", Base64.getEncoder().encodeToString(bytes));
+                        params.put("number", getIntent().getStringExtra("number"));
+                        return params;
+                    }
+                };
+                RequestQueue queue= Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
 
             }
         });
