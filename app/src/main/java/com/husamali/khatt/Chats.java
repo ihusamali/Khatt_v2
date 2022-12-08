@@ -52,9 +52,6 @@ public class Chats extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chats,container,false);
 
-        idd = OneSignal.getDeviceState().getUserId();
-        Toast.makeText(getContext(), "Hello" + idd, Toast.LENGTH_LONG).show();
-
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -3,6 +3,7 @@ package com.husamali.khatt;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,7 @@ public class SignUpStage2 extends AppCompatActivity {
     byte[] bytes;
     Bitmap bitmap;
     Uri dpp;
+    String oneSignalID;
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -77,6 +80,8 @@ public class SignUpStage2 extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         name = findViewById(R.id.nameSignUp);
         finish = findViewById(R.id.finishSignUp);
+        oneSignalID = OneSignal.getDeviceState().getUserId();
+
         dp.setOnClickListener(view -> {
             Intent i = new Intent();
             i.setType("image/*");
@@ -99,7 +104,7 @@ public class SignUpStage2 extends AppCompatActivity {
                 StorageReference storageReference = storage.getReference("Image1"+calendar.getTimeInMillis()+".jpg");
                 storageReference.putFile(dpp).addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseAuth.getCurrentUser().getUid());
-                    UserProfile mUserProfile = new UserProfile(str_name, firebaseAuth.getCurrentUser().getUid(),uri.toString(),getIntent().getStringExtra("number"));
+                    UserProfile mUserProfile = new UserProfile(str_name, firebaseAuth.getCurrentUser().getUid(),uri.toString(),getIntent().getStringExtra("number"), oneSignalID);
                     databaseReference.setValue(mUserProfile);
                     Intent intent=new Intent(getApplicationContext(), Home.class);
                     startActivity(intent);
@@ -153,7 +158,9 @@ public class SignUpStage2 extends AppCompatActivity {
                         Map<String, String> params=new HashMap<>();
                         params.put("name",name.getText().toString());
                         params.put("id",firebaseAuth.getCurrentUser().getUid());
-                        params.put("dp", Base64.getEncoder().encodeToString(bytes));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            params.put("dp", Base64.getEncoder().encodeToString(bytes));
+                        }
                         params.put("number", getIntent().getStringExtra("number"));
                         return params;
                     }

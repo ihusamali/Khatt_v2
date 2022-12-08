@@ -21,6 +21,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,8 +47,13 @@ public class Chatting extends AppCompatActivity {
     RecyclerView recyclerView;
 
     String userID;
+    String myName;
 
     Intent intent;
+
+    String newMsg;
+
+    String oneSignalID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,8 @@ public class Chatting extends AppCompatActivity {
         send = findViewById(R.id.send);
         msg = findViewById(R.id.msg);
         plus = findViewById(R.id.plus);
+
+        newMsg = msg.getText().toString();
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -70,7 +81,18 @@ public class Chatting extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID);
 
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myName = snapshot.child("username").getValue(String.class);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,11 +100,13 @@ public class Chatting extends AppCompatActivity {
                 String final_msg = msg.getText().toString();
                 if (final_msg!=""){
                     sendMessage(firebaseUser.getUid(), userID , final_msg);
+                    newMsg = msg.getText().toString();
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Type a message", Toast.LENGTH_LONG).show();
                 }
                 msg.setText("");
+                sendNotification(userID);
             }
         });
 
@@ -106,6 +130,33 @@ public class Chatting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+    }
+
+
+
+    private void sendNotification(String userID) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                oneSignalID = snapshot.child("oneSignalID").getValue(String.class);
+                Toast.makeText(getApplicationContext(), "" + newMsg , Toast.LENGTH_LONG).show();
+                try {
+                    JSONObject notificationContent = new JSONObject(
+                            "{'contents':{'en':'" + myName + " New Message                                                                                                              "+ newMsg +"'},"+
+                                    "'include_player_ids':['" + oneSignalID + "']," +
+                                    "'headings':{'en': '" + "Khatt" + "'}}");
+                    OneSignal.postNotification(notificationContent, null);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

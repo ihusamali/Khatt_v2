@@ -4,13 +4,17 @@ import android.graphics.Bitmap;
 
 public class UserProfile {
 
-    public String username, userUID, dp , number;
+    public String username, userUID, dp, number, oneSignalID;
 
-    public UserProfile(String username, String userUID, String dp , String number) {
+
+
+    public UserProfile(String username, String userUID, String dp , String number, String oneSignalID) {
         this.username = username;
         this.userUID = userUID;
         this.dp = dp;
         this.number = number;
+        this.oneSignalID = oneSignalID;
+
     }
     public UserProfile(String username, String userUID, String dp) {
         this.username = username;
@@ -22,6 +26,14 @@ public class UserProfile {
 
     public UserProfile() {
 
+    }
+
+    public String getOneSignalID() {
+        return oneSignalID;
+    }
+
+    public void setOneSignalID(String oneSignalID) {
+        this.oneSignalID = oneSignalID;
     }
 
     public String getNumber() {
